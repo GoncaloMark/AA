@@ -1,5 +1,6 @@
 import os
 from itertools import combinations
+import time
 
 class ExhaustiveSearch:
     def __init__(self):
@@ -54,8 +55,11 @@ def process_edge_list_file(file_path):
     print(f"\nProcessing '{file_path}'")
     print(f"Number of vertices inferred: {n}")
 
+    start = time.time()
     max_matching = search.brute_force_max_matching()
+    end = time.time()
     print("Maximum Matching:", max_matching)
+    print(f"Time::[{end-start}s]")
 
 def main():
     directory = "graphs"
