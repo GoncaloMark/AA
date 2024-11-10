@@ -1,9 +1,9 @@
 import os
-from itertools import combinations
 import time
-from typing import List, Tuple
+from collections import defaultdict
+from typing import List, Tuple, Dict
 
-class ExhaustiveSearch:
+class GreedySearch:
     def __init__(self) -> None:
         self.edges = []  
         self.vertices = set()  
@@ -13,31 +13,29 @@ class ExhaustiveSearch:
         self.edges.append((u, v))
         self.vertices.update([u, v])  
 
-    def is_valid_matching(self, subset: List[Tuple[int, int]]) -> bool:
-        """Check if the provided subset of edges is a valid matching."""
-        matched_vertices = set()
-        
-        for u, v in subset:
-            # If one vertex is already matched, it is invalid
-            if u in matched_vertices or v in matched_vertices:
-                return False
-            
-            # Mark as matched
-            matched_vertices.add(u)
-            matched_vertices.add(v)
-        
-        return True
+    def calculate_degrees(self) -> Dict[int, int]:
+        """Calculate the degree of each vertex in the graph."""
+        degree = defaultdict(int)
+        for u, v in self.edges:
+            degree[u] += 1
+            degree[v] += 1
+        return degree
 
-    def max_matching(self) -> Tuple[int, int]:
-        """Find the maximum matching using brute force."""
+    def max_matching(self) -> List[Tuple[int, int]]:
+        """Find a maximum matching using a greedy heuristic based on vertex degree."""
+        degree = self.calculate_degrees()
+        
+        sorted_edges = sorted(self.edges, key=lambda edge: degree[edge[0]] + degree[edge[1]], reverse=True)
+        
         max_matching = []
-        
-        # Try all possible subsets of edges
-        for r in range(len(self.edges) + 1):
-            for subset in combinations(self.edges, r):
-                if self.is_valid_matching(subset) and len(subset) > len(max_matching):
-                    max_matching = subset
-        
+        matched_vertices = set()
+
+        for u, v in sorted_edges:
+            if u not in matched_vertices and v not in matched_vertices:
+                max_matching.append((u, v))
+                matched_vertices.add(u)
+                matched_vertices.add(v)
+
         return max_matching
 
     def process_edge_list_file(self, file_path: str) -> None:
@@ -62,12 +60,11 @@ class ExhaustiveSearch:
 
 def main() -> None:
     directory = "graphs"
-
     for root, _, files in os.walk(directory):
         for file in files:
             if file.endswith(".edgelist"):
                 file_path = os.path.join(root, file)
-                search = ExhaustiveSearch()
+                search = GreedySearch()
                 search.process_edge_list_file(file_path)
 
 if __name__ == "__main__":
