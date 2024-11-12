@@ -12,7 +12,6 @@ data = pd.read_csv(file_path)
 # Sort the data by Vertices and Edge Distribution
 data_sorted = data.sort_values(by=['Vertices', 'Edge Distribution (%)'])
 
-# Create a line plot with Vertices on the X-axis and each algorithm/edge distribution as a line
 plt.figure(figsize=(10, 6))
 
 greedy_data = data_sorted[data_sorted['Algorithm'] == 'greedy']

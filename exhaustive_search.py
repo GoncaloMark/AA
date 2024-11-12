@@ -2,7 +2,6 @@ import os
 from itertools import combinations
 import time
 from typing import List, Tuple
-#OPP BASIDCA CONTAR SUBCONJS
 class ExhaustiveSearch:
     def __init__(self) -> None:
         self.edges = []  

@@ -17,15 +17,15 @@ exhaustive_data = data_sorted[data_sorted['Algorithm'] == 'exhaustive']
 greedy_exec_time = greedy_data[['Vertices', 'Edge Distribution (%)', 'Execution Time (s)']]
 greedy_exec_time.to_csv(os.path.join(output_folder, 'greedy_execution_time.csv'), index=False)
 
-# 2. CSV for Execution Time vs Vertices and Edge Distribution (Exhaustive Search)
+# CSV for Execution Time vs Vertices and Edge Distribution (Exhaustive Search)
 exhaustive_exec_time = exhaustive_data[['Vertices', 'Edge Distribution (%)', 'Execution Time (s)']]
 exhaustive_exec_time.to_csv(os.path.join(output_folder, 'exhaustive_execution_time.csv'), index=False)
 
-# 3. CSV for Operations vs Vertices and Edge Distribution (Greedy Search)
+# CSV for Operations vs Vertices and Edge Distribution (Greedy Search)
 greedy_operations = greedy_data[['Vertices', 'Edge Distribution (%)', 'Operations']]
 greedy_operations.to_csv(os.path.join(output_folder, 'greedy_operations.csv'), index=False)
 
-# 4. CSV for Operations vs Vertices and Edge Distribution (Exhaustive Search)
+# CSV for Operations vs Vertices and Edge Distribution (Exhaustive Search)
 exhaustive_operations = exhaustive_data[['Vertices', 'Edge Distribution (%)', 'Operations']]
 exhaustive_operations.to_csv(os.path.join(output_folder, 'exhaustive_operations.csv'), index=False)
 

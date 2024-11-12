@@ -2,7 +2,6 @@ import os
 import time
 from collections import defaultdict
 from typing import List, Tuple, Dict
-# BASIC OPP ACRESCENTAR A SOLUÇÃO
 class GreedySearch:
     def __init__(self) -> None:
         self.edges = []  
