@@ -7,6 +7,7 @@ class ExhaustiveSearch:
     def __init__(self) -> None:
         self.edges = []  
         self.vertices = set()  
+        self.operations = 0
 
     def add_edge(self, u: int, v: int) -> None:
         """Add an edge to the graph and update vertices."""
@@ -18,6 +19,7 @@ class ExhaustiveSearch:
         matched_vertices = set()
         
         for u, v in subset:
+            self.operations += 1
             # If one vertex is already matched, it is invalid
             if u in matched_vertices or v in matched_vertices:
                 return False
@@ -28,19 +30,20 @@ class ExhaustiveSearch:
         
         return True
 
-    def max_matching(self) -> Tuple[int, int]:
+    def max_matching(self) -> Tuple[Tuple[int, int], ...]:
         """Find the maximum matching using brute force."""
         max_matching = []
         
         # Try all possible subsets of edges
         for r in range(len(self.edges) + 1):
             for subset in combinations(self.edges, r):
+                self.operations += 1
                 if self.is_valid_matching(subset) and len(subset) > len(max_matching):
                     max_matching = subset
         
         return max_matching
 
-    def process_edge_list_file(self, file_path: str) -> None:
+    def process_edge_list_file(self, file_path: str) -> Tuple[Tuple[Tuple[int, int], ...], float]:
         """Read edges from a file and find the maximum matching."""
         # Read edge lists
         with open(file_path, 'r') as file:
@@ -57,8 +60,11 @@ class ExhaustiveSearch:
         start = time.time()
         max_matching = self.max_matching()
         end = time.time()
+        execution_time = end - start
         print("Maximum Matching:", max_matching)
-        print(f"Time::[{end-start}s]")
+        print(f"Time::[{execution_time}s]")
+
+        return (max_matching, execution_time, self.operations)
 
 def main() -> None:
     directory = "graphs"

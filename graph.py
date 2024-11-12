@@ -7,7 +7,7 @@ from itertools import combinations
 import math
 
 class Generator:
-    def __init__(self, seed, min_distance=10):
+    def __init__(self, seed, min_distance=50):
         self.seed = seed
         self.min_distance = min_distance
         random.seed(self.seed)
@@ -48,6 +48,7 @@ class GraphVisualizer:
         plt.figure()
         nx.draw(G, pos, with_labels=True, node_color='lightblue', edge_color='gray', node_size=500)
         plt.savefig(f'{filename}.png')
+        plt.close()
         # plt.show()
 
 class GraphStorage:
@@ -107,7 +108,7 @@ class Graph:
 
 if __name__ == '__main__':
     student_number = 98648
-    vertex_range = range(4, 7)  
+    vertex_range = range(4, 10)  
     edge_densities = [0.125, 0.25, 0.5, 0.75] 
     
     experiment = Graph(student_number)

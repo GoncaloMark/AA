@@ -7,6 +7,7 @@ class GreedySearch:
     def __init__(self) -> None:
         self.edges = []  
         self.vertices = set()  
+        self.operations = 0
 
     def add_edge(self, u: int, v: int) -> None:
         """Add an edge to the graph and update vertices."""
@@ -17,6 +18,7 @@ class GreedySearch:
         """Calculate the degree of each vertex in the graph."""
         degree = defaultdict(int)
         for u, v in self.edges:
+            self.operations += 1
             degree[u] += 1
             degree[v] += 1
         return degree
@@ -31,6 +33,7 @@ class GreedySearch:
         matched_vertices = set()
 
         for u, v in sorted_edges:
+            self.operations += 1
             if u not in matched_vertices and v not in matched_vertices:
                 max_matching.append((u, v))
                 matched_vertices.add(u)
@@ -38,7 +41,7 @@ class GreedySearch:
 
         return max_matching
 
-    def process_edge_list_file(self, file_path: str) -> None:
+    def process_edge_list_file(self, file_path: str) -> Tuple[List[Tuple[int, int]], float]:
         """Read edges from a file and find the maximum matching."""
         # Read edge lists
         with open(file_path, 'r') as file:
@@ -55,8 +58,11 @@ class GreedySearch:
         start = time.time()
         max_matching = self.max_matching()
         end = time.time()
+        execution_time = end - start
         print("Maximum Matching:", max_matching)
-        print(f"Time::[{end-start}s]")
+        print(f"Time::[{execution_time}s]")
+
+        return (max_matching, execution_time, self.operations)
 
 def main() -> None:
     directory = "graphs"
