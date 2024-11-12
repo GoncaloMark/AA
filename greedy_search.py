@@ -2,7 +2,7 @@ import os
 import time
 from collections import defaultdict
 from typing import List, Tuple, Dict
-
+# BASIC OPP ACRESCENTAR A SOLUÇÃO
 class GreedySearch:
     def __init__(self) -> None:
         self.edges = []  
@@ -18,7 +18,6 @@ class GreedySearch:
         """Calculate the degree of each vertex in the graph."""
         degree = defaultdict(int)
         for u, v in self.edges:
-            self.operations += 1
             degree[u] += 1
             degree[v] += 1
         return degree
@@ -33,15 +32,15 @@ class GreedySearch:
         matched_vertices = set()
 
         for u, v in sorted_edges:
-            self.operations += 1
             if u not in matched_vertices and v not in matched_vertices:
+                self.operations += 1
                 max_matching.append((u, v))
                 matched_vertices.add(u)
                 matched_vertices.add(v)
 
         return max_matching
 
-    def process_edge_list_file(self, file_path: str) -> Tuple[List[Tuple[int, int]], float]:
+    def process_edge_list_file(self, file_path: str) -> Tuple[List[Tuple[int, int]], float, int]:
         """Read edges from a file and find the maximum matching."""
         # Read edge lists
         with open(file_path, 'r') as file:
@@ -55,9 +54,9 @@ class GreedySearch:
         print(f"\nProcessing '{file_path}'")
         print(f"Number of vertices inferred: {n}")
 
-        start = time.time()
+        start = time.perf_counter()
         max_matching = self.max_matching()
-        end = time.time()
+        end = time.perf_counter()
         execution_time = end - start
         print("Maximum Matching:", max_matching)
         print(f"Time::[{execution_time}s]")

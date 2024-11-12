@@ -1,4 +1,4 @@
-.PHONY: graphs exsearch greedysearch plots all
+.PHONY: graphs exsearch greedysearch plots tables all
 
 graphs:
 	python3 graph.py
@@ -11,6 +11,9 @@ greedysearch:
 
 plots:
 	python3 results.py
+
+tables:
+	python3 tables.py
 
 all:
 	python3 main.py

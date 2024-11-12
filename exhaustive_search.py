@@ -2,7 +2,7 @@ import os
 from itertools import combinations
 import time
 from typing import List, Tuple
-
+#OPP BASIDCA CONTAR SUBCONJS
 class ExhaustiveSearch:
     def __init__(self) -> None:
         self.edges = []  
@@ -19,7 +19,6 @@ class ExhaustiveSearch:
         matched_vertices = set()
         
         for u, v in subset:
-            self.operations += 1
             # If one vertex is already matched, it is invalid
             if u in matched_vertices or v in matched_vertices:
                 return False
@@ -43,7 +42,7 @@ class ExhaustiveSearch:
         
         return max_matching
 
-    def process_edge_list_file(self, file_path: str) -> Tuple[Tuple[Tuple[int, int], ...], float]:
+    def process_edge_list_file(self, file_path: str) -> Tuple[Tuple[Tuple[int, int], ...], float, int]:
         """Read edges from a file and find the maximum matching."""
         # Read edge lists
         with open(file_path, 'r') as file:
@@ -57,9 +56,9 @@ class ExhaustiveSearch:
         print(f"\nProcessing '{file_path}'")
         print(f"Number of vertices inferred: {n}")
 
-        start = time.time()
+        start = time.perf_counter()
         max_matching = self.max_matching()
-        end = time.time()
+        end = time.perf_counter()
         execution_time = end - start
         print("Maximum Matching:", max_matching)
         print(f"Time::[{execution_time}s]")
